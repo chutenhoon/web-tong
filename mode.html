@@ -3,234 +3,501 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Duy Tien - Luyện Trắc Nghiệm</title>
-  
+  <title>Chọn môn - Duy Tien</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <meta property="og:title" content="Duy Tien - Luyện Trắc Nghiệm" />
-  <meta property="og:description" content="Luyện Trắc Nghiệm" />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="/new-banner.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
   <div class="app-container">
-    
-    <div class="video-wrapper">
-        <div class="video-overlay"></div>
-        <video class="bg-video" autoplay muted loop playsinline preload="auto">
-            <source src="video/video.mp4" type="video/mp4" />
-        </video>
-    </div>
-
     <nav class="navbar">
       <div class="nav-inner">
-        <div class="logo">
-          <i class="fas fa-cube"></i> Duy Tien
-        </div>
-
-        <div class="desktop-menu">
-            <a href="#hero" class="nav-link">Trang chủ</a>
-            <a href="#about" class="nav-link">Tính năng</a>
-            <a href="#contact" class="nav-link">Liên hệ</a>
-        </div>
-
-        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
-            <i class="fas fa-bars"></i>
-        </button>
-      </div>
-
-      <div class="mobile-menu hidden" id="mobileMenu">
-        <a href="#hero" class="menu-link">Trang chủ</a>
-        <a href="#about" class="menu-link">Hướng dẫn</a>
-        <a href="#contact" class="menu-link">Liên hệ</a>
+        <a href="index.html" class="nav-back"><i class="fas fa-chevron-left"></i></a>
+        <span class="nav-title">Chọn môn</span>
+        <div class="nav-placeholder"></div>
       </div>
     </nav>
 
-    <main class="content-wrapper">
-        
-        <section class="hero" id="hero">
-            <div class="hero-content">
-                <h1 class="hero-title">Luyện Thi<br/>Trắc Nghiệm</h1>
-                <p class="hero-desc">
-                    Hệ thống ôn tập. Chấm điểm và xem kết quả ngay lập tức.
-                </p>
-                
-                <div class="action-group">
-                    <a href="mode.html" class="btn btn-primary">
-                        Bắt đầu ngay <i class="fas fa-arrow-right"></i>
-                    </a>
-                    <button class="btn btn-outline" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">
-                        Hướng dẫn
-                    </button>
-                </div>
-            </div>
-        </section>
+    <main class="content">
 
-        <section class="info-section glass-box" id="about">
-            <div class="info-item">
-                <div class="icon-box">
-                    <i class="fas fa-bolt"></i>
-                </div>
-                <div class="text-box">
-                    <h4>Tốc độ</h4>
-                    <p>Chấm điểm tức thì</p>
-                </div>
-            </div>
-            <div class="divider"></div>
-            <div class="info-item">
-                <div class="icon-box">
-                    <i class="fas fa-database"></i>
-                </div>
-                <div class="text-box">
-                    <h4>Đa dạng</h4>
-                    <p>Dữ liệu hên xui nha</p>
-                </div>
-            </div>
-        </section>
+      <section class="leaderboard glass-panel" aria-label="Bảng xếp hạng">
+        <div class="lb-head">
+          <div class="lb-title">Bảng xếp hạng</div>
+          <div class="lb-sub">Top 3 người làm nhiều nhất</div>
+        </div>
 
-        <footer class="footer" id="contact">
-            <p>© 2024 Duy Tien. All rights reserved.</p>
-            <div class="social-links">
-                <a href="#"><i class="fab fa-telegram"></i></a>
-                <a href="https://www.facebook.com/profile.php?id=61584429791945" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-facebook"></i>
-                </a>
+        <div id="lbLoading" class="lb-loading">Đang tải...</div>
+
+        <div id="lbEmpty" class="lb-empty hidden">
+          Chưa có dữ liệu. Hãy làm bài để lên top!
+        </div>
+
+        <div id="lbList" class="lb-list hidden"></div>
+      </section>
+
+      <div class="header" style="margin-top: 18px;">
+        <h1>Chọn môn học</h1>
+        <p>Chạm để vào đúng trang môn bạn cần.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">MÔN HỌC</div>
+
+        <div class="grid-subject">
+          <div class="subject-card ripple" onclick="goToSubject('https://cuoiky-lichsu.pages.dev/mode')">
+            <div class="subject-top">
+              <i class="fas fa-landmark icon-sm"></i>
+              <span class="pill">Môn</span>
             </div>
-        </footer>
+            <div class="subject-main">
+              <div class="subject-name">Lịch sử</div>
+              <div class="subject-sub">Vào chế độ</div>
+            </div>
+            <div class="subject-foot">
+              <span class="subject-link">Mở</span>
+              <i class="fas fa-arrow-right arrow"></i>
+            </div>
+          </div>
+
+          <div class="subject-card ripple" onclick="goToSubject('https://cuoiky-sinhhoc.pages.dev/mode')">
+            <div class="subject-top">
+              <i class="fas fa-dna icon-sm"></i>
+              <span class="pill">Môn</span>
+            </div>
+            <div class="subject-main">
+              <div class="subject-name">Sinh Học</div>
+              <div class="subject-sub">Vào chế độ</div>
+            </div>
+            <div class="subject-foot">
+              <span class="subject-link">Mở</span>
+              <i class="fas fa-arrow-right arrow"></i>
+            </div>
+          </div>
+
+          <div class="subject-card ripple" onclick="goToSubject('https://cuoiky-tinhoc.pages.dev/mode')">
+            <div class="subject-top">
+              <i class="fas fa-microchip icon-sm"></i>
+              <span class="pill">Môn</span>
+            </div>
+            <div class="subject-main">
+              <div class="subject-name">Tin Học</div>
+              <div class="subject-sub">Vào chế độ</div>
+            </div>
+            <div class="subject-foot">
+              <span class="subject-link">Mở</span>
+              <i class="fas fa-arrow-right arrow"></i>
+            </div>
+          </div>
+
+          <div class="subject-card ripple" onclick="goToSubject('https://cuoiky-tienganh.pages.dev/')">
+            <div class="subject-top">
+              <i class="fas fa-language icon-sm"></i>
+              <span class="pill">Môn</span>
+            </div>
+            <div class="subject-main">
+              <div class="subject-name">Tiếng Anh</div>
+              <div class="subject-sub">Nhóm Không Chọn</div>
+            </div>
+            <div class="subject-foot">
+              <span class="subject-link">Mở</span>
+              <i class="fas fa-arrow-right arrow"></i>
+            </div>
+          </div>
+
+          <div class="subject-card ripple" onclick="goToSubject('https://cuoiky-tienganh-chon.pages.dev/mode')">
+            <div class="subject-top">
+              <i class="fas fa-language icon-sm"></i>
+              <span class="pill">Môn</span>
+            </div>
+            <div class="subject-main">
+              <div class="subject-name">Tiếng Anh</div>
+              <div class="subject-sub">Nhóm Có Chọn</div>
+            </div>
+            <div class="subject-foot">
+              <span class="subject-link">Mở</span>
+              <i class="fas fa-arrow-right arrow"></i>
+            </div>
+          </div>
+
+        </div>
+      </div>
 
     </main>
   </div>
 
   <style>
     :root {
-        --bg: #050505;
-        --surface: rgba(20, 20, 20, 0.4);
-        --border: rgba(255, 255, 255, 0.1);
-        --text-main: #EDEDED;
-        --text-sub: #9ca3af;
-        --primary: #ffffff;
-        --font: 'Inter', sans-serif;
-        --max-width-desktop: 1100px;
+      --bg: #050505;
+      --surface: #121212;
+      --surface-hover: #1E1E1E;
+      --border: rgba(255,255,255,0.08);
+
+      --text-primary: #EDEDED;
+      --text-secondary: #888888;
+      --accent: #fff;
+
+      --font-main: 'Inter', sans-serif;
+      --radius: 16px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; outline: none; -webkit-tap-highlight-color: transparent; }
-    html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text-main); font-family: var(--font); overflow-x: hidden; line-height: 1.5; }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
-    .app-container { width: 100%; min-height: 100vh; display: flex; flex-direction: column; position: relative; }
-
-    /* --- FIX VIDEO BACKGROUND FULL TRANG --- */
-    .video-wrapper {
-        position: fixed; /* Chuyển sang fixed để bám theo toàn màn hình khi cuộn */
-        top: 0; left: 0; width: 100%; height: 100vh;
-        z-index: -1; /* Nằm dưới cùng */
-        pointer-events: none;
-    }
-    .bg-video { 
-        width: 100%; height: 100%; object-fit: cover; 
-        opacity: 0.65; /* Tăng từ 0.5 lên 0.65 để thấy video rõ hơn nữa */
-    }
-    .video-overlay {
-        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        /* Giảm độ đen của gradient để nhìn xuyên thấu video tốt hơn */
-        background: linear-gradient(180deg, rgba(5,5,5,0.2) 0%, rgba(5,5,5,0.6) 100%);
-        z-index: 1;
+    body {
+      background-color: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--font-main);
+      font-size: 14px;
+      line-height: 1.4;
     }
 
-    /* Navbar */
+    .app-container {
+      max-width: 440px;
+      margin: 0 auto;
+      min-height: 100vh;
+      position: relative;
+      background: var(--bg);
+    }
+
     .navbar {
-        position: sticky; top: 0; z-index: 100;
-        width: 100%;
-        background: rgba(5, 5, 5, 0.4); /* Giảm độ đục để thấy video phía sau */
-        backdrop-filter: blur(15px);
-        border-bottom: 1px solid var(--border);
+      height: 56px;
+      display: flex; align-items: center;
+      padding: 0 16px;
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(5,5,5,0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
     }
-    .nav-inner { max-width: var(--max-width-desktop); margin: 0 auto; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-weight: 800; font-size: 18px; letter-spacing: -0.5px; display: flex; gap: 10px; align-items: center; color: #fff; }
-    .desktop-menu { display: none; gap: 32px; }
-    .nav-link { color: var(--text-sub); text-decoration: none; font-size: 14px; font-weight: 500; transition: 0.2s; }
-    .nav-link:hover { color: #fff; }
-    .mobile-menu-btn { background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; display: block; }
+    .nav-inner { width: 100%; display: flex; justify-content: space-between; align-items: center; }
+    .nav-back { color: var(--text-primary); font-size: 16px; width: 32px; height: 32px; display: flex; align-items: center; }
+    .nav-title { font-weight: 600; font-size: 15px; letter-spacing: 0.3px; }
+    .nav-placeholder { width: 32px; }
 
-    .mobile-menu {
-        position: absolute; top: 100%; right: 16px; width: 220px;
-        background: rgba(26, 26, 26, 0.9); border: 1px solid var(--border);
-        border-radius: 12px; padding: 8px; display: flex; flex-direction: column; gap: 4px;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.6); opacity: 0; transform: translateY(-10px); 
-        pointer-events: none; transition: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .mobile-menu.active { opacity: 1; transform: translateY(0); pointer-events: all; }
-    .menu-link { padding: 12px 16px; border-radius: 8px; font-size: 14px; color: var(--text-sub); text-decoration: none; }
+    .content { padding: 24px 16px; }
 
-    /* Content */
-    .content-wrapper { 
-        position: relative; z-index: 2; flex: 1; display: flex; flex-direction: column;
-        width: 100%; max-width: var(--max-width-desktop); margin: 0 auto; padding: 0 24px;
+    .header { margin-bottom: 18px; text-align: center; }
+    .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.5px; }
+    .header p { color: var(--text-secondary); font-size: 13px; }
+
+    .section { margin-bottom: 22px; }
+    .section-label {
+      font-size: 11px; font-weight: 700; color: #555; letter-spacing: 1px; margin-bottom: 12px; text-transform: uppercase;
     }
 
-    .hero { padding: 80px 0 40px 0; text-align: center; display: flex; flex-direction: column; align-items: center; }
-    .hero-title {
-        font-size: 42px; font-weight: 800; line-height: 1.15; margin-bottom: 20px;
-        letter-spacing: -1.5px; color: #fff;
-        text-shadow: 0 2px 15px rgba(0,0,0,0.5);
+    .glass-panel{
+      margin-top: 0;
+      border-radius: 18px;
+      padding: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
-    .hero-desc { font-size: 16px; color: #fff; line-height: 1.6; margin-bottom: 40px; max-width: 500px; text-shadow: 0 1px 5px rgba(0,0,0,0.5); }
-
-    .action-group { display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 320px; margin: 0 auto; }
-    .btn { height: 52px; display: flex; align-items: center; justify-content: center; gap: 10px; border-radius: 14px; font-size: 15px; font-weight: 600; cursor: pointer; text-decoration: none; transition: 0.2s; }
-    .btn-primary { background: var(--primary); color: #000; border: none; }
-    .btn-outline { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid var(--border); backdrop-filter: blur(5px); }
-
-    .glass-box {
-        background: rgba(30, 30, 30, 0.4); border: 1px solid var(--border);
-        backdrop-filter: blur(12px); border-radius: 20px; padding: 24px;
-        display: flex; align-items: center; justify-content: space-between;
-        margin: 40px auto; width: 100%; max-width: 480px;
+    .leaderboard .lb-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 12px;
+      margin-bottom: 12px;
     }
-    .info-item { display: flex; align-items: center; gap: 16px; flex: 1; justify-content: center; }
-    .icon-box { width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; }
-    .text-box h4 { font-size: 14px; font-weight: 600; color: #fff; }
-    .text-box p { font-size: 12px; color: #ddd; }
-    .divider { width: 1px; height: 40px; background: var(--border); }
-
-    .footer { margin-top: auto; padding: 30px 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: #ddd; }
-    .social-links { display: flex; gap: 20px; font-size: 18px; }
-    .social-links a { color: #fff; }
-
-    .hidden { display: none; }
-
-    /* Responsive */
-    @media (min-width: 769px) {
-        .mobile-menu-btn { display: none; }
-        .desktop-menu { display: flex; }
-        .hero { padding: 120px 0 60px 0; }
-        .hero-title { font-size: 64px; }
-        .action-group { flex-direction: row; justify-content: center; max-width: none; }
-        .btn { width: 180px; }
-        .glass-box { max-width: 600px; }
+    .leaderboard .lb-title{
+      font-size: 14px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.78);
+      font-weight: 700;
+    }
+    .leaderboard .lb-sub{
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      font-weight: 600;
+    }
+    .lb-loading, .lb-empty{
+      padding: 14px 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.65);
+      font-size: 13px;
+      text-align: center;
+    }
+    .lb-list{
+      display:flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .lb-item{
+      position: relative;
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      padding: 12px 12px;
+      border-radius: 16px;
+      background: rgba(0,0,0,0.28);
+      border: 1px solid rgba(255,255,255,0.07);
+      overflow:hidden;
+    }
+    .lb-item::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: radial-gradient(120% 140% at 12% 0%, rgba(255,255,255,0.10), transparent 55%);
+      pointer-events:none;
+    }
+    .lb-rank .rank-badge{
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 800;
+      font-size: 15px;
+      color: rgba(255,255,255,0.85);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .lb-meta{
+      flex: 1;
+      min-width: 0;
+    }
+    .lb-name{
+      font-weight: 800;
+      font-size: 14px;
+      color: rgba(255,255,255,0.88);
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 3px;
+    }
+    .lb-stats{
+      font-size: 12px;
+      color: rgba(255,255,255,0.55);
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .lb-stats .dot{ opacity: .6; }
+    .lb-medal{
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      flex-shrink: 0;
     }
 
-    @media (max-width: 768px) {
-        .hero-title { font-size: 36px; }
-        .footer { flex-direction: column-reverse; gap: 16px; text-align: center; }
+    .lb-item.r1{
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.32);
     }
+    .lb-item.r1::after{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      border-radius: 18px;
+      padding: 2px;
+      background: conic-gradient(from 210deg, rgba(255,255,255,0.22), rgba(255,255,255,0.06), rgba(255,255,255,0.16));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events:none;
+      opacity: .65;
+    }
+    .lb-item.r1 .lb-rank{ position: relative; }
+    .lb-item.r1 .lb-rank::after{
+      content:"";
+      position:absolute;
+      top:-34px;
+      left:-120px;
+      width:220px;
+      height:120px;
+
+      background:
+        linear-gradient(90deg,
+          transparent 0%,
+          rgba(255,255,255,0.00) 35%,
+          rgba(255,255,255,0.10) 48%,
+          rgba(255,255,255,0.22) 52%,
+          rgba(255,255,255,0.10) 56%,
+          rgba(255,255,255,0.00) 68%,
+          transparent 100%
+        );
+
+      transform: translateX(-180px) rotate(14deg);
+      opacity: 0;
+      filter: blur(0.8px);
+      mix-blend-mode: overlay;
+      pointer-events: none;
+
+      animation: lbShine 5.2s cubic-bezier(.21,.72,.22,.99) infinite;
+    }
+    @keyframes lbShine{
+      0%   { transform: translateX(-180px) rotate(14deg); opacity: 0; }
+      10%  { opacity: .55; }
+      32%  { transform: translateX(190px) rotate(14deg); opacity: .22; }
+      40%  { opacity: 0; transform: translateX(260px) rotate(14deg); }
+      100% { opacity: 0; transform: translateX(260px) rotate(14deg); }
+    }
+    .lb-item.r2 .rank-badge{ background: rgba(220,220,220,0.06); }
+    .lb-item.r3 .rank-badge{ background: rgba(255,180,120,0.05); }
+
+    .grid-subject{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .ripple { position: relative; overflow: hidden; }
+
+    .subject-card{
+      border-radius: 18px;
+      padding: 16px;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.28);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      display:flex;
+      flex-direction: column;
+      min-height: 132px;
+      transition: transform .12s ease, background .2s ease, border-color .2s ease;
+    }
+    .subject-card:active{
+      transform: scale(0.97);
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.12);
+    }
+    .subject-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom: 10px;
+    }
+    .icon-sm{ font-size: 14px; color: rgba(255,255,255,0.70); }
+
+    .pill{
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.70);
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      white-space: nowrap;
+    }
+
+    .subject-main{ margin-top: 6px; }
+    .subject-name{
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: -0.4px;
+      color: rgba(255,255,255,0.92);
+      margin-bottom: 4px;
+    }
+    .subject-sub{
+      font-size: 12px;
+      color: rgba(255,255,255,0.50);
+      font-weight: 700;
+    }
+
+    .subject-foot{
+      margin-top: auto;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      color: rgba(255,255,255,0.55);
+      font-weight: 800;
+      font-size: 12px;
+    }
+    .arrow{ font-size: 12px; color: rgba(255,255,255,0.28); }
+
+    .hidden { display: none !important; }
   </style>
 
   <script>
-    const btn = document.getElementById('mobileMenuBtn');
-    const menu = document.getElementById('mobileMenu');
-    btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        menu.classList.toggle('hidden');
-        setTimeout(() => menu.classList.toggle('active'), 10);
-    });
-    document.addEventListener('click', (e) => {
-        if (!menu.contains(e.target) && !btn.contains(e.target)) {
-            menu.classList.remove('active');
-            setTimeout(() => menu.classList.add('hidden'), 200);
+    async function loadLeaderboard() {
+      const loading = document.getElementById("lbLoading");
+      const empty = document.getElementById("lbEmpty");
+      const list = document.getElementById("lbList");
+
+      try {
+        loading.classList.remove("hidden");
+        empty.classList.add("hidden");
+        list.classList.add("hidden");
+        list.innerHTML = "";
+
+        const res = await fetch("/api/leaderboard?limit=3", { cache: "no-store" });
+        if (!res.ok) throw new Error("leaderboard_fetch_failed");
+        const data = await res.json();
+
+        const top = (data && data.top) ? data.top : [];
+        loading.classList.add("hidden");
+
+        if (!top.length) {
+          empty.classList.remove("hidden");
+          return;
         }
+
+        top.forEach((row, i) => {
+          const rank = row.rank || (i + 1);
+          const name = row.displayName || "Ẩn danh";
+          const attempts = row.attempts ?? 0;
+          const rate = row.aboveAvgRate ?? 0;
+
+          const el = document.createElement("div");
+          el.className = `lb-item r${rank}`;
+
+          el.innerHTML = `
+            <div class="lb-rank">
+              <div class="rank-badge">${rank}</div>
+            </div>
+            <div class="lb-meta">
+              <div class="lb-name" title="${escapeHtml(name)}">${escapeHtml(name)}</div>
+              <div class="lb-stats">
+                <span><b>${attempts}</b> lượt</span>
+                <span class="dot">•</span>
+                <span><b>${Math.round(rate * 100)}%</b> trên TB</span>
+              </div>
+            </div>
+            <div class="lb-medal">${rank === 1 ? "Vô địch" : (rank === 2 ? "Á quân" : "Hạng ba")}</div>
+          `;
+          list.appendChild(el);
+        });
+
+        list.classList.remove("hidden");
+      } catch (e) {
+        loading.classList.add("hidden");
+        empty.classList.remove("hidden");
+        empty.textContent = "Không tải được bảng xếp hạng.";
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function goToSubject(url) {
+      location.href = url;
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      loadLeaderboard();
     });
   </script>
 </body>
