@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Liên hệ - Duy Tien</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050505;
+      --surface: rgba(20, 20, 20, 0.42);
+      --surface-2: rgba(30, 30, 30, 0.38);
+      --border: rgba(255, 255, 255, 0.10);
+      --border-2: rgba(255, 255, 255, 0.14);
+      --text-main: #EDEDED;
+      --text-sub: rgba(237,237,237,0.72);
+      --font: 'Inter', sans-serif;
+      --shadow-1: 0 18px 55px rgba(0,0,0,0.60);
+      --shadow-2: 0 10px 30px rgba(0,0,0,0.45);
+      --max-width: 1100px;
+      --card-max: 520px;
+      --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+    }
+    html::-webkit-scrollbar {
+      display: none;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+    .video-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: -2;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .bg-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.65;
+    }
+    .video-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(5,5,5,0.22) 0%, rgba(5,5,5,0.62) 100%);
+      z-index: 1;
+    }
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      width: 100%;
+      background: rgba(5,5,5,0.40);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+    }
+    .nav-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .logo {
+      font-weight: 800;
+      font-size: 18px;
+      color: #fff;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      letter-spacing: -0.4px;
+      text-decoration: none;
+    }
+    .nav-link {
+      color: rgba(237,237,237,0.72);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: 0.2s ease;
+    }
+    .nav-link:hover {
+      color: #fff;
+    }
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 44px 24px;
+      position: relative;
+      z-index: 2;
+    }
+    .page-head {
+      width: 100%;
+      max-width: var(--card-max);
+      margin: 0 auto 16px;
+      text-align: center;
+    }
+    .page-title {
+      font-size: 28px;
+      font-weight: 850;
+      letter-spacing: -0.9px;
+      color: #fff;
+      text-shadow: 0 2px 14px rgba(0,0,0,0.55);
+    }
+    .page-subtitle {
+      margin-top: 6px;
+      font-size: 14px;
+      color: rgba(237,237,237,0.70);
+    }
+    .glass-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: var(--shadow-1);
+      padding: 28px 22px;
+      max-width: var(--card-max);
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      transition: transform .25s ease, border-color .25s ease, background .25s ease;
+    }
+    .glass-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-2);
+      background: rgba(20,20,20,0.46);
+    }
+    .glass-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(1200px 500px at 50% -20%, rgba(255,255,255,0.07), transparent 55%),
+        radial-gradient(900px 520px at 20% 120%, rgba(255,255,255,0.05), transparent 60%);
+      pointer-events: none;
+    }
+    .admin-top {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 14px;
+    }
+    .avatar-wrapper {
+      width: 124px;
+      height: 124px;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.45);
+      background: rgba(255,255,255,0.03);
+    }
+    .admin-avatar {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      image-rendering: -webkit-optimize-contrast;
+    }
+    .admin-name {
+      font-size: 26px;
+      font-weight: 850;
+      letter-spacing: -0.8px;
+      color: #fff;
+      margin-top: 4px;
+    }
+    .admin-role {
+      display: inline-block;
+      margin-left: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(237,237,237,0.75);
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      vertical-align: middle;
+    }
+    .admin-desc {
+      font-size: 14px;
+      color: var(--text-sub);
+      line-height: 1.7;
+      margin-top: 6px;
+      max-width: 44ch;
+    }
+    .social-links {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .social-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #fff;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      box-shadow: var(--shadow-2);
+    }
+    .social-icon:hover {
+      transform: translateY(-3px);
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(255,255,255,0.18);
+    }
+    .social-icon:active {
+      transform: translateY(-1px) scale(0.98);
+    }
+    .soft-divider {
+      position: relative;
+      height: 1px;
+      width: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.16), transparent);
+      margin: 18px 0 16px;
+    }
+    .team-wrap {
+      width: 100%;
+      max-width: var(--card-max);
+      margin: 16px auto 0;
+    }
+    .team-toggle {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: #fff;
+      cursor: pointer;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: var(--shadow-2);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      user-select: none;
+    }
+    .team-toggle:hover {
+      transform: translateY(-2px);
+      background: rgba(30,30,30,0.44);
+      border-color: rgba(255,255,255,0.14);
+    }
+    .team-toggle-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      text-align: left;
+    }
+    .team-toggle-title {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+      color: #fff;
+    }
+    .team-toggle-sub {
+      font-size: 12px;
+      color: rgba(237,237,237,0.68);
+    }
+    .chev {
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      transition: transform .22s var(--ease-smooth);
+      flex: 0 0 auto;
+      will-change: transform;
+      transform: translateZ(0);
+    }
+    .team-toggle[aria-expanded="true"] .chev {
+      transform: rotate(180deg) translateZ(0);
+    }
+
+    .team-panel {
+      height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transform: translate3d(0,-6px,0);
+      margin-top: 12px;
+      will-change: height, opacity, transform;
+      contain: layout paint;
+    }
+    .team-panel.open {
+      opacity: 1;
+      transform: translate3d(0,0,0);
+    }
+    .team-panel-inner {
+      overflow: hidden;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .team-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 18px 16px;
+      box-shadow: var(--shadow-2);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .team-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(900px 420px at 50% -20%, rgba(255,255,255,0.06), transparent 55%);
+      pointer-events: none;
+    }
+    .team-avatar {
+      width: 86px;
+      height: 86px;
+      border-radius: 999px;
+      object-fit: cover;
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.45);
+      background: rgba(255,255,255,0.03);
+      image-rendering: -webkit-optimize-contrast;
+      position: relative;
+      z-index: 1;
+    }
+    .team-name {
+      margin-top: 12px;
+      font-size: 18px;
+      font-weight: 850;
+      letter-spacing: -0.4px;
+      color: #fff;
+      position: relative;
+      z-index: 1;
+    }
+    .team-role {
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(237,237,237,0.70);
+      margin-top: 4px;
+      position: relative;
+      z-index: 1;
+    }
+    .team-desc {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.65;
+      position: relative;
+      z-index: 1;
+    }
+    .team-social {
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    .team-social .social-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      font-size: 18px;
+      box-shadow: none;
+    }
+    .back-btn {
+      margin-top: 18px;
+      padding: 14px 22px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      box-shadow: var(--shadow-2);
+      max-width: var(--card-max);
+      width: 100%;
+    }
+    .back-btn:hover {
+      background: rgba(255,255,255,0.14);
+      border-color: rgba(255,255,255,0.14);
+      transform: translateY(-2px);
+    }
+    .back-btn:active {
+      transform: translateY(-1px) scale(0.99);
+    }
+    @media (min-width: 769px) {
+      .content { padding: 64px 24px; }
+      .page-title { font-size: 32px; }
+      .glass-card { padding: 34px 28px; }
+      .avatar-wrapper { width: 138px; height: 138px; }
+    }
+    @media (max-width: 420px) {
+      .glass-card { border-radius: 22px; }
+      .admin-name { font-size: 24px; }
+      .social-icon { width: 50px; height: 50px; border-radius: 14px; }
+    }
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid rgba(255,255,255,0.22);
+      outline-offset: 3px;
+      border-radius: 14px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .team-panel,
+      .chev,
+      .glass-card,
+      .social-icon,
+      .team-toggle,
+      .back-btn {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="video-wrapper">
+    <div class="video-overlay"></div>
+    <video class="bg-video" autoplay muted loop playsinline preload="auto">
+      <source src="video/contact.mp4" type="video/mp4">
+    </video>
+  </div>
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="./index.html" class="logo"><i class="fas fa-cube"></i> Duy Tien</a>
+      <a href="./index.html" class="nav-link">Trang chủ</a>
+    </div>
+  </nav>
+  <div class="content">
+    <div class="page-head">
+      <div class="page-title">Duy Tien</div>
+      <div class="page-subtitle">Liên hệ & thông tin</div>
+    </div>
+    <div class="glass-card" role="region" aria-label="Thông tin ProBot">
+      <div class="admin-top">
+        <div class="avatar-wrapper">
+          <img src="Pic/Avt-admin.jpg" alt="ProBot" class="admin-avatar">
+        </div>
+        <div>
+          <h3 class="admin-name">ProBot <span class="admin-role">Dev</span></h3>
+          <p class="admin-desc">
+            Dev chính của trang Web.<br>
+            Đây là một cách học khá hay để kiểm tra kiến thức.
+          </p>
+        </div>
+        <div class="soft-divider"></div>
+        <div class="social-links" aria-label="Liên kết mạng xã hội">
+          <a href="#" class="social-icon" target="_blank" rel="noopener" aria-label="Facebook">
+            <i class="fab fa-facebook"></i>
+          </a>
+          <a href="#" class="social-icon" target="_blank" rel="noopener" aria-label="Telegram">
+            <i class="fab fa-telegram"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="team-wrap">
+      <button class="team-toggle" id="teamToggle" type="button" aria-expanded="false" aria-controls="teamPanel">
+        <div class="team-toggle-left">
+          <div class="team-toggle-title">Xem thêm thành viên</div>
+          <div class="team-toggle-sub">Bấm để mở danh sách thành viên</div>
+        </div>
+        <div class="chev" aria-hidden="true">
+          <i class="fas fa-chevron-down"></i>
+        </div>
+      </button>
+      <div class="team-panel" id="teamPanel" aria-label="Danh sách thành viên">
+        <div class="team-panel-inner">
+          <div class="team-grid">
+            <div class="team-card">
+              <img src="Pic/avatar-trang-4.jpg" alt="Chí Tâm" class="team-avatar">
+              <h4 class="team-name">Chí Tâm</h4>
+              <p class="team-role">Người đề ra ý tưởng</p>
+              <p class="team-desc">
+                Người nghĩ ra cách học này,<br>
+                Và cũng là Tester của Web này.
+              </p>
+              <div class="team-social">
+                <a href="#" class="social-icon" target="_blank" rel="noopener" aria-label="Facebook">
+                  <i class="fab fa-facebook"></i>
+                </a>
+                <a href="#" class="social-icon" target="_blank" rel="noopener" aria-label="Telegram">
+                  <i class="fab fa-telegram"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="back-btn" onclick="window.history.back()">← Quay về Trang chủ</button>
+  </div>
+  <script>
+    const toggleBtn = document.getElementById('teamToggle');
+    const panel = document.getElementById('teamPanel');
+
+    let anim = null;
+
+    const easing = 'cubic-bezier(0.16, 1, 0.3, 1)';
+    const durationOpen = 520;
+    const durationClose = 420;
+
+    function stopAnim() {
+      if (anim) {
+        anim.cancel();
+        anim = null;
+      }
+    }
+
+    function scrollToBottomImmediate() {
+      const root = document.scrollingElement || document.documentElement;
+      root.scrollTop = root.scrollHeight;
+    }
+
+    function openPanel() {
+      stopAnim();
+      panel.classList.add('open');
+
+      panel.style.height = '0px';
+      panel.offsetHeight;
+
+      const target = panel.scrollHeight;
+
+      anim = panel.animate(
+        [
+          { height: '0px', opacity: 0, transform: 'translate3d(0,-6px,0)' },
+          { height: target + 'px', opacity: 1, transform: 'translate3d(0,0,0)' }
+        ],
+        { duration: durationOpen, easing, fill: 'forwards' }
+      );
+
+      requestAnimationFrame(scrollToBottomImmediate);
+
+      anim.onfinish = () => {
+        anim = null;
+        panel.style.height = 'auto';
+        panel.style.opacity = '';
+        panel.style.transform = '';
+        scrollToBottomImmediate();
+      };
+    }
+
+    function closePanel() {
+      stopAnim();
+
+      const current = panel.getBoundingClientRect().height;
+      panel.style.height = current + 'px';
+      panel.offsetHeight;
+
+      anim = panel.animate(
+        [
+          { height: current + 'px', opacity: 1, transform: 'translate3d(0,0,0)' },
+          { height: '0px', opacity: 0, transform: 'translate3d(0,-6px,0)' }
+        ],
+        { duration: durationClose, easing, fill: 'forwards' }
+      );
+
+      anim.onfinish = () => {
+        anim = null;
+        panel.classList.remove('open');
+        panel.style.height = '0px';
+      };
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      const isOpen = toggleBtn.getAttribute('aria-expanded') === 'true';
+      toggleBtn.setAttribute('aria-expanded', String(!isOpen));
+
+      if (!isOpen) openPanel();
+      else closePanel();
+    });
+
+    window.addEventListener('resize', () => {
+      if (panel.classList.contains('open') && !anim) {
+        panel.style.height = 'auto';
+      }
+    }, { passive: true });
+  </script>
+</body>
+</html>
