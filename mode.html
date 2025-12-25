@@ -118,7 +118,6 @@
               <i class="fas fa-arrow-right arrow"></i>
             </div>
           </div>
-
         </div>
       </div>
 
@@ -148,7 +147,7 @@
       --border: rgba(255,255,255,0.08);
       --text-primary: #EDEDED;
       --text-secondary: #888888;
-      --accent: #fff;
+      --accent: #ffffff;
       --font-main: 'Inter', sans-serif;
       --radius: 16px;
     }
@@ -188,12 +187,14 @@
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
+
     .nav-inner {
       width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
+
     .nav-back {
       color: var(--text-primary);
       font-size: 16px;
@@ -202,11 +203,13 @@
       display: flex;
       align-items: center;
     }
+
     .nav-title {
       font-weight: 600;
       font-size: 15px;
       letter-spacing: 0.3px;
     }
+
     .nav-placeholder {
       width: 32px;
     }
@@ -219,12 +222,14 @@
       margin-bottom: 18px;
       text-align: center;
     }
+
     .header h1 {
       font-size: 22px;
       font-weight: 700;
       margin-bottom: 6px;
       letter-spacing: -0.5px;
     }
+
     .header p {
       color: var(--text-secondary);
       font-size: 13px;
@@ -233,10 +238,11 @@
     .section {
       margin-bottom: 22px;
     }
+
     .section-label {
       font-size: 11px;
       font-weight: 700;
-      color: #555;
+      color: #555555;
       letter-spacing: 1px;
       margin-bottom: 12px;
       text-transform: uppercase;
@@ -260,18 +266,21 @@
       gap: 12px;
       margin-bottom: 12px;
     }
+
     .leaderboard .lb-title {
       font-size: 14px;
-      letter-spacing: .14em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.78);
       font-weight: 700;
     }
+
     .leaderboard .lb-sub {
       font-size: 12px;
       color: rgba(255,255,255,0.45);
       font-weight: 600;
     }
+
     .lb-loading,
     .lb-empty {
       padding: 14px 12px;
@@ -282,11 +291,13 @@
       font-size: 13px;
       text-align: center;
     }
+
     .lb-list {
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
+
     .lb-item {
       position: relative;
       display: flex;
@@ -298,6 +309,7 @@
       border: 1px solid rgba(255,255,255,0.07);
       overflow: hidden;
     }
+
     .lb-item::before {
       content: "";
       position: absolute;
@@ -305,6 +317,7 @@
       background: radial-gradient(120% 140% at 12% 0%, rgba(255,255,255,0.10), transparent 55%);
       pointer-events: none;
     }
+
     .lb-rank .rank-badge {
       width: 38px;
       height: 38px;
@@ -318,10 +331,12 @@
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.10);
     }
+
     .lb-meta {
       flex: 1;
       min-width: 0;
     }
+
     .lb-name {
       font-weight: 800;
       font-size: 14px;
@@ -331,6 +346,7 @@
       text-overflow: ellipsis;
       margin-bottom: 3px;
     }
+
     .lb-stats {
       font-size: 12px;
       color: rgba(255,255,255,0.55);
@@ -339,13 +355,15 @@
       gap: 8px;
       flex-wrap: wrap;
     }
+
     .lb-stats .dot {
-      opacity: .6;
+      opacity: 0.6;
     }
+
     .lb-medal {
       font-size: 11px;
       font-weight: 800;
-      letter-spacing: .08em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.55);
       padding: 7px 10px;
@@ -359,6 +377,7 @@
       border: 1px solid rgba(255,255,255,0.14);
       background: rgba(0,0,0,0.32);
     }
+
     .lb-item.r1::after {
       content: "";
       position: absolute;
@@ -370,11 +389,13 @@
       -webkit-mask-composite: xor;
       mask-composite: exclude;
       pointer-events: none;
-      opacity: .65;
+      opacity: 0.65;
     }
+
     .lb-item.r1 .lb-rank {
       position: relative;
     }
+
     .lb-item.r1 .lb-rank::after {
       content: "";
       position: absolute;
@@ -382,33 +403,27 @@
       left: -120px;
       width: 220px;
       height: 120px;
-      background:
-        linear-gradient(90deg,
-          transparent 0%,
-          rgba(255,255,255,0.00) 35%,
-          rgba(255,255,255,0.10) 48%,
-          rgba(255,255,255,0.22) 52%,
-          rgba(255,255,255,0.10) 56%,
-          rgba(255,255,255,0.00) 68%,
-          transparent 100%
-        );
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.00) 35%, rgba(255,255,255,0.10) 48%, rgba(255,255,255,0.22) 52%, rgba(255,255,255,0.10) 56%, rgba(255,255,255,0.00) 68%, transparent 100%);
       transform: translateX(-180px) rotate(14deg);
       opacity: 0;
       filter: blur(0.8px);
       mix-blend-mode: overlay;
       pointer-events: none;
-      animation: lbShine 5.2s cubic-bezier(.21,.72,.22,.99) infinite;
+      animation: lbShine 5.2s cubic-bezier(0.21,0.72,0.22,0.99) infinite;
     }
+
     @keyframes lbShine {
-      0%   { transform: translateX(-180px) rotate(14deg); opacity: 0; }
-      10%  { opacity: .55; }
-      32%  { transform: translateX(190px) rotate(14deg); opacity: .22; }
-      40%  { opacity: 0; transform: translateX(260px) rotate(14deg); }
+      0% { transform: translateX(-180px) rotate(14deg); opacity: 0; }
+      10% { opacity: 0.55; }
+      32% { transform: translateX(190px) rotate(14deg); opacity: 0.22; }
+      40% { opacity: 0; transform: translateX(260px) rotate(14deg); }
       100% { opacity: 0; transform: translateX(260px) rotate(14deg); }
     }
+
     .lb-item.r2 .rank-badge {
       background: rgba(220,220,220,0.06);
     }
+
     .lb-item.r3 .rank-badge {
       background: rgba(255,180,120,0.05);
     }
@@ -436,19 +451,22 @@
       display: flex;
       flex-direction: column;
       min-height: 132px;
-      transition: transform .12s ease, background .2s ease, border-color .2s ease;
+      transition: transform 0.12s ease, background 0.2s ease, border-color 0.2s ease;
     }
+
     .subject-card:active {
       transform: scale(0.97);
       background: rgba(255,255,255,0.06);
       border-color: rgba(255,255,255,0.12);
     }
+
     .subject-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 10px;
     }
+
     .icon-sm {
       font-size: 14px;
       color: rgba(255,255,255,0.70);
@@ -457,7 +475,7 @@
     .pill {
       font-size: 9px;
       font-weight: 800;
-      letter-spacing: .10em;
+      letter-spacing: 0.10em;
       text-transform: uppercase;
       background: rgba(255,255,255,0.08);
       color: rgba(255,255,255,0.70);
@@ -470,6 +488,7 @@
     .subject-main {
       margin-top: 6px;
     }
+
     .subject-name {
       font-size: 18px;
       font-weight: 900;
@@ -477,6 +496,7 @@
       color: rgba(255,255,255,0.92);
       margin-bottom: 4px;
     }
+
     .subject-sub {
       font-size: 12px;
       color: rgba(255,255,255,0.50);
@@ -494,17 +514,17 @@
       font-weight: 800;
       font-size: 12px;
     }
+
     .arrow {
       font-size: 12px;
       color: rgba(255,255,255,0.28);
     }
 
-    /* Lịch sử làm bài gần đây */
     .recent-history {
       margin-top: 18px;
-      border-radius: 18px;
       padding: 16px;
-      background: rgba(255,255,255,0.04);
+      border-radius: 18px;
+      background: rgba(10,10,10,0.9);
       border: 1px solid rgba(255,255,255,0.08);
       box-shadow: 0 10px 40px rgba(0,0,0,0.35);
       backdrop-filter: blur(14px);
@@ -522,22 +542,21 @@
     .rh-title {
       font-size: 14px;
       font-weight: 700;
-      letter-spacing: .14em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.88);
+      color: rgba(255,255,255,0.9);
     }
 
     .rh-sub {
       font-size: 12px;
-      color: rgba(255,255,255,0.45);
-      font-weight: 500;
+      color: rgba(255,255,255,0.5);
     }
 
     .rh-loading,
     .rh-empty {
       font-size: 13px;
-      color: rgba(255,255,255,0.65);
-      padding: 12px;
+      color: rgba(255,255,255,0.6);
+      padding: 10px 12px;
       border-radius: 14px;
       background: rgba(0,0,0,0.25);
       border: 1px solid rgba(255,255,255,0.06);
@@ -562,21 +581,21 @@
       background: rgba(0,0,0,0.28);
       border: 1px solid rgba(255,255,255,0.07);
       overflow: hidden;
+      transform: translateY(10px);
+      opacity: 0;
     }
 
     .rh-item::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(120% 140% at 12% 0%, rgba(255,255,255,0.10), transparent 55%);
+      background: radial-gradient(120% 140% at 0% 0%, rgba(255,255,255,0.08), transparent 55%);
       pointer-events: none;
     }
 
     .rh-main {
       flex: 1;
       min-width: 0;
-      position: relative;
-      z-index: 1;
     }
 
     .rh-name {
@@ -591,12 +610,10 @@
     .rh-subject {
       margin-top: 2px;
       font-size: 12px;
-      color: rgba(255,255,255,0.60);
+      color: rgba(255,255,255,0.6);
     }
 
     .rh-meta {
-      position: relative;
-      z-index: 1;
       text-align: right;
       font-size: 11px;
       color: rgba(255,255,255,0.55);
@@ -604,36 +621,23 @@
     }
 
     .rh-dot {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       border-radius: 999px;
       background: radial-gradient(circle, rgba(0,255,180,1), rgba(0,255,180,0.05));
-      box-shadow: 0 0 10px rgba(0,255,180,0.8);
+      box-shadow: 0 0 12px rgba(0,255,180,0.85);
       align-self: center;
       flex-shrink: 0;
-      position: relative;
-      z-index: 1;
     }
 
-    .rh-item--new {
-      animation: rhPopIn 0.5s cubic-bezier(.18,.89,.32,1.28);
+    .rh-item.is-visible {
+      animation: rhFadeUp 0.5s cubic-bezier(0.22,0.8,0.3,1) forwards;
     }
 
-    @keyframes rhPopIn {
-      0% {
-        transform: translateY(10px) scale(0.96);
-        opacity: 0;
-        filter: blur(1px);
-      }
-      60% {
-        transform: translateY(-1px) scale(1.02);
-        opacity: 1;
-        filter: blur(0);
-      }
-      100% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-      }
+    @keyframes rhFadeUp {
+      0% { transform: translateY(10px) scale(0.97); opacity: 0; filter: blur(1px); }
+      60% { transform: translateY(-1px) scale(1.01); opacity: 1; filter: blur(0); }
+      100% { transform: translateY(0) scale(1); opacity: 1; }
     }
 
     .hidden {
@@ -657,7 +661,7 @@
         if (!res.ok) throw new Error("leaderboard_fetch_failed");
         const data = await res.json();
 
-        const top = (data && data.top) ? data.top : [];
+        const top = data && data.top ? data.top : [];
         loading.classList.add("hidden");
 
         if (!top.length) {
@@ -666,28 +670,28 @@
         }
 
         top.forEach((row, i) => {
-          const rank = row.rank || (i + 1);
+          const rank = row.rank || i + 1;
           const name = row.displayName || "Ẩn danh";
-          const attempts = row.attempts ?? 0;
-          const rate = row.aboveAvgRate ?? 0;
+          const attempts = row.attempts != null ? row.attempts : 0;
+          const rate = row.aboveAvgRate != null ? row.aboveAvgRate : 0;
 
           const el = document.createElement("div");
-          el.className = `lb-item r${rank}`;
+          el.className = "lb-item r" + rank;
 
-          el.innerHTML = `
-            <div class="lb-rank">
-              <div class="rank-badge">${rank}</div>
-            </div>
-            <div class="lb-meta">
-              <div class="lb-name" title="${escapeHtml(name)}">${escapeHtml(name)}</div>
-              <div class="lb-stats">
-                <span><b>${attempts}</b> lượt</span>
-                <span class="dot">•</span>
-                <span><b>${Math.round(rate * 100)}%</b> trên TB</span>
-              </div>
-            </div>
-            <div class="lb-medal">${rank === 1 ? "Vô địch" : (rank === 2 ? "Á quân" : "Hạng ba")}</div>
-          `;
+          el.innerHTML =
+            '<div class="lb-rank">' +
+              '<div class="rank-badge">' + rank + "</div>" +
+            "</div>" +
+            '<div class="lb-meta">' +
+              '<div class="lb-name" title="' + escapeHtml(name) + '">' + escapeHtml(name) + "</div>" +
+              '<div class="lb-stats">' +
+                "<span><b>" + attempts + "</b> lượt</span>" +
+                '<span class="dot">•</span>' +
+                "<span><b>" + Math.round(rate * 100) + "%</b> trên TB</span>" +
+              "</div>" +
+            "</div>" +
+            '<div class="lb-medal">' + (rank === 1 ? "Vô địch" : rank === 2 ? "Á quân" : "Hạng ba") + "</div>";
+
           list.appendChild(el);
         });
 
@@ -701,7 +705,7 @@
 
     function modeKeyToSubject(modeKey) {
       if (!modeKey) return "Một bài kiểm tra";
-      const k = modeKey.toLowerCase();
+      const k = String(modeKey).toLowerCase();
       if (k.includes("lich") || k.includes("history")) return "Lịch sử";
       if (k.includes("sinh") || k.includes("bio")) return "Sinh Học";
       if (k.includes("tin") || k.includes("it") || k.includes("info")) return "Tin Học";
@@ -720,6 +724,7 @@
         hour12: false,
         timeZone: "Asia/Ho_Chi_Minh"
       };
+
       const optDate = {
         day: "2-digit",
         month: "2-digit",
@@ -735,10 +740,10 @@
     }
 
     async function loadRecentHistory() {
-      const panel  = document.getElementById("recentHistoryPanel");
+      const panel = document.getElementById("recentHistoryPanel");
       const loading = document.getElementById("rhLoading");
-      const empty   = document.getElementById("rhEmpty");
-      const list    = document.getElementById("rhList");
+      const empty = document.getElementById("rhEmpty");
+      const list = document.getElementById("rhList");
 
       if (!panel || !loading || !empty || !list) return;
 
@@ -750,7 +755,7 @@
 
         const res = await fetch("/api/recent-attempts?limit=3", { cache: "no-store" });
         const data = await res.json();
-        const items = (data && Array.isArray(data.recent)) ? data.recent : [];
+        const items = data && Array.isArray(data.recent) ? data.recent : [];
 
         loading.classList.add("hidden");
 
@@ -759,36 +764,63 @@
           return;
         }
 
-        list.classList.remove("hidden");
-
         items.forEach((item, index) => {
-          const name    = escapeHtml(item.displayName || "Ẩn danh");
+          const name = escapeHtml(item.displayName || "Ẩn danh");
           const subject = escapeHtml(modeKeyToSubject(item.modeKey));
-          const time    = escapeHtml(formatTimeVN(item.createdAt));
-          const score   = (item.score10 != null) ? " · " + Number(item.score10).toFixed(1) + "/10" : "";
+          const time = escapeHtml(formatTimeVN(item.createdAt));
+          const score = item.score10 != null ? " · " + Number(item.score10).toFixed(1) + "/10" : "";
 
           const div = document.createElement("div");
-          div.className = "rh-item" + (index === 0 ? " rh-item--new" : "");
+          div.className = "rh-item";
 
-          div.innerHTML = `
-            <div class="rh-dot"></div>
-            <div class="rh-main">
-              <div class="rh-name">${name}</div>
-              <div class="rh-subject">${subject}${score}</div>
-            </div>
-            <div class="rh-meta">${time}</div>
-          `;
+          div.innerHTML =
+            '<div class="rh-dot"></div>' +
+            '<div class="rh-main">' +
+              '<div class="rh-name">' + name + "</div>" +
+              '<div class="rh-subject">' + subject + score + "</div>" +
+            "</div>" +
+            '<div class="rh-meta">' + time + "</div>";
 
+          div.dataset.index = String(index);
           list.appendChild(div);
-
-          if (index === 0) {
-            setTimeout(() => div.classList.remove("rh-item--new"), 800);
-          }
         });
+
+        list.classList.remove("hidden");
+        setupRecentHistoryObserver();
       } catch (err) {
         loading.classList.add("hidden");
         empty.classList.remove("hidden");
       }
+    }
+
+    function setupRecentHistoryObserver() {
+      const panel = document.getElementById("recentHistoryPanel");
+      if (!panel) return;
+
+      const items = panel.querySelectorAll(".rh-item");
+      if (!items.length) return;
+
+      const options = {
+        root: null,
+        threshold: 0.25
+      };
+
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const listItems = panel.querySelectorAll(".rh-item");
+            listItems.forEach((el, idx) => {
+              const delay = idx * 90;
+              setTimeout(() => {
+                el.classList.add("is-visible");
+              }, delay);
+            });
+            obs.disconnect();
+          }
+        });
+      }, options);
+
+      observer.observe(panel);
     }
 
     function escapeHtml(str) {
@@ -804,10 +836,9 @@
       location.href = url;
     }
 
-    window.addEventListener("DOMContentLoaded", () => {
+    window.addEventListener("DOMContentLoaded", function () {
       loadLeaderboard();
       loadRecentHistory();
-      setInterval(loadRecentHistory, 15000);
     });
   </script>
 </body>
