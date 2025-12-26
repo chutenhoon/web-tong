@@ -3,235 +3,386 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Duy Tien - Luyện Trắc Nghiệm</title>
+  <title>Duy Tien - Hệ Thống Luyện Trắc Nghiệm</title>
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
   <meta property="og:title" content="Duy Tien - Luyện Trắc Nghiệm" />
-  <meta property="og:description" content="Luyện Trắc Nghiệm" />
+  <meta property="og:description" content="Nền tảng ôn tập kiến thức hiệu quả" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="/new-banner.png" />
+
+  <style>
+    :root {
+      --bg-main: #000000;
+      --txt-w: #ffffff;
+      --txt-g: rgba(255, 255, 255, 0.65);
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-b: rgba(255, 255, 255, 0.12);
+      --max-w: 1100px;
+      --fluid-gap: clamp(20px, 5vh, 60px);
+      --safe-top-margin: 100px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; outline: none; -webkit-tap-highlight-color: transparent; }
+    
+    body { 
+      background: var(--bg-main); 
+      color: var(--txt-w); 
+      font-family: 'Be Vietnam Pro', sans-serif; 
+      overflow-x: hidden; 
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bg-wrap {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100vh;
+        z-index: -1;
+        overflow: hidden;
+    }
+    
+    .bg-vid { 
+        width: 100%; height: 100%; object-fit: cover; 
+        transform: scale(1.05);
+        opacity: 0.6;
+    }
+    
+    .bg-overlay {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%);
+        z-index: 1;
+    }
+
+    .main-container {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .nav-bar {
+      position: fixed;
+      top: clamp(10px, 2vh, 20px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 92%;
+      max-width: var(--max-w);
+      height: 56px;
+      z-index: 1000;
+      background: rgba(15, 15, 15, 0.4); 
+      backdrop-filter: blur(25px) saturate(180%);
+      -webkit-backdrop-filter: blur(25px) saturate(180%);
+      border: 1px solid var(--glass-b);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 10px 30px rgba(0, 0, 0, 0.3);
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+
+    .logo { 
+      font-weight: 700; 
+      font-size: 17px; 
+      display: flex; 
+      gap: 8px; 
+      align-items: center; 
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links { display: none; gap: 24px; }
+    .nav-item { 
+      color: var(--txt-g); 
+      text-decoration: none; 
+      font-size: 13px; 
+      font-weight: 500; 
+      transition: 0.3s; 
+    }
+    .nav-item:hover { color: #fff; }
+
+    .menu-trigger { 
+      width: 32px; 
+      height: 32px;
+      display: flex; 
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+      gap: 5px;
+    }
+
+    .burger-line {
+      width: 20px;
+      height: 2px;
+      background-color: #fff;
+      border-radius: 2px;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform-origin: center;
+    }
+
+    .menu-trigger.active .burger-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .menu-trigger.active .burger-line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .menu-trigger.active .burger-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-dropdown {
+      position: absolute; 
+      top: 66px; right: 0; 
+      width: 180px;
+      background: rgba(15, 15, 15, 0.8); 
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border: 1px solid var(--glass-b);
+      border-radius: 20px; 
+      padding: 10px; 
+      display: flex; flex-direction: column; gap: 4px;
+      opacity: 0; transform: translateY(-10px) scale(0.95); 
+      pointer-events: none; transition: 0.3s ease;
+      transform-origin: top right;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+    .mobile-dropdown.active { opacity: 1; transform: translateY(0) scale(1); pointer-events: all; }
+    
+    .drop-link { 
+      padding: 12px 16px; border-radius: 12px; 
+      font-size: 14px; color: var(--txt-g); text-decoration: none; 
+      transition: 0.2s;
+    }
+    .drop-link:hover { background: rgba(255,255,255,0.05); color: #fff; }
+
+    .content-area { 
+      position: relative; 
+      z-index: 5; 
+      flex: 1; 
+      display: flex; 
+      flex-direction: column;
+      justify-content: center;
+      width: 100%; 
+      max-width: var(--max-w); 
+      margin: 0 auto; 
+      padding: 24px;
+      margin-top: var(--safe-top-margin);
+    }
+
+    .hero-box { 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      text-align: center;
+      margin-bottom: var(--fluid-gap);
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+
+    .hero-title {
+      font-size: clamp(38px, 10vw, 68px); 
+      font-weight: 800; 
+      line-height: 1.05; 
+      margin-bottom: 16px;
+      letter-spacing: -0.04em; 
+      color: #fff;
+    }
+    
+    .hero-desc { 
+      font-size: clamp(14px, 2.5vw, 18px); 
+      color: var(--txt-g); 
+      margin-bottom: clamp(30px, 6vh, 44px); 
+      max-width: 550px; 
+      font-weight: 400;
+    }
+
+    .actions { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 12px; 
+      width: 100%; 
+      max-width: 280px; 
+    }
+    
+    .btn { 
+      height: 56px; 
+      display: flex; align-items: center; justify-content: center; 
+      border-radius: 28px; font-size: 15px; font-weight: 600; 
+      text-decoration: none; transition: 0.3s;
+      letter-spacing: -0.01em;
+    }
+
+    .btn-primary { background: #ffffff; color: #000000; box-shadow: 0 10px 25px rgba(255,255,255,0.1); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(255,255,255,0.15); }
+    .btn-outline { background: rgba(255,255,255,0.06); color: #fff; border: 1px solid rgba(255,255,255,0.12); }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); }
+
+    .feature-grid {
+        background: rgba(255, 255, 255, 0.03); 
+        border: 1px solid var(--glass-b);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        border-radius: 28px; 
+        padding: clamp(24px, 5vw, 36px);
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 100%; 
+        max-width: 750px;
+        margin: 0 auto;
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    
+    .f-item { display: flex; align-items: center; gap: 18px; flex: 1; }
+    .f-icon { 
+      width: 48px; height: 48px; background: rgba(255,255,255,0.04);
+      border: 1px solid var(--glass-b); border-radius: 14px; 
+      display: flex; align-items: center; justify-content: center; color: #fff;
+      font-size: 18px;
+    }
+    
+    .f-text h4 { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 1px; }
+    .f-text p { font-size: 12px; color: var(--txt-g); }
+    
+    .divider { height: 1px; background: rgba(255,255,255,0.08); width: 100%; }
+
+    .site-footer { 
+      padding: 30px 24px; 
+      display: flex; flex-direction: column; align-items: center; gap: 20px;
+      font-size: 12px; color: rgba(255,255,255,0.3); 
+      margin-top: auto;
+    }
+    .social-links { display: flex; gap: 28px; }
+    .social-links a { color: inherit; font-size: 18px; transition: 0.3s; }
+    .social-links a:hover { color: #fff; }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (min-width: 769px) {
+        .menu-trigger { display: none; }
+        .nav-links { display: flex; }
+        .actions { flex-direction: row; justify-content: center; max-width: none; gap: 16px; }
+        .btn { width: 185px; }
+        .feature-grid { flex-direction: row; align-items: center; }
+        .divider { width: 1px; height: 40px; }
+        .site-footer { flex-direction: row; justify-content: space-between; max-width: var(--max-w); margin: 0 auto; width: 100%; margin-top: 40px; }
+        .content-area { margin-top: 0; }
+    }
+  </style>
 </head>
 <body>
 
-  <div class="app-container">
-    
-    <div class="video-wrapper">
-        <div class="video-overlay"></div>
-        <video class="bg-video" autoplay muted loop playsinline preload="auto">
+  <div class="main-container">
+    <div class="bg-wrap">
+        <div class="bg-overlay"></div>
+        <video class="bg-vid" autoplay muted loop playsinline preload="auto">
             <source src="video/video.mp4" type="video/mp4" />
         </video>
     </div>
 
-    <nav class="navbar">
-      <div class="nav-inner">
-        <div class="logo">
-          <i class="fas fa-cube"></i> Duy Tien
-        </div>
+    <nav class="nav-bar">
+      <a href="index.html" class="logo">
+        <i class="fas fa-terminal"></i> <span>Duy Tien</span>
+      </a>
 
-        <div class="desktop-menu">
-            <a href="#hero" class="nav-link">Trang chủ</a>
-            <a href="#about" class="nav-link">Tính năng</a>
-            <a href="contact.html" class="nav-link">Liên hệ</a>
-        </div>
-
-        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
-            <i class="fas fa-bars"></i>
-        </button>
+      <div class="nav-links">
+          <a href="index.html" class="nav-item">Trang chủ</a>
+          <a href="#about" class="nav-item">Tính năng</a>
+          <a href="contact.html" class="nav-item">Liên hệ</a>
       </div>
 
-      <div class="mobile-menu hidden" id="mobileMenu">
-        <a href="#hero" class="menu-link">Trang chủ</a>
-        <a href="#about" class="menu-link">Hướng dẫn</a>
-        <a href="contact.html" class="menu-link">Liên hệ</a>
+      <div class="menu-trigger" id="mToggle">
+          <div class="burger-line"></div>
+          <div class="burger-line"></div>
+          <div class="burger-line"></div>
+      </div>
+
+      <div class="mobile-dropdown" id="mMenu">
+        <a href="index.html" class="drop-link">Trang chủ</a>
+        <a href="#about" class="drop-link">Tính năng</a>
+        <a href="contact.html" class="drop-link">Liên hệ</a>
       </div>
     </nav>
 
-    <main class="content-wrapper">
-        
-        <section class="hero" id="hero">
-            <div class="hero-content">
-                <h1 class="hero-title">Luyện Thi<br/>Trắc Nghiệm</h1>
-                <p class="hero-desc">
-                    Hệ thống ôn tập. Chấm điểm và xem kết quả ngay lập tức.
-                </p>
-                
-                <div class="action-group">
-                    <a href="mode.html" class="btn btn-primary">
-                        Bắt đầu ngay <i class="fas fa-arrow-right"></i>
-                    </a>
-                    <button class="btn btn-outline" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">
-                        Hướng dẫn
-                    </button>
-                </div>
+    <main class="content-area">
+        <section class="hero-box">
+            <h1 class="hero-title">Luyện Thi<br/>Trắc Nghiệm</h1>
+            <p class="hero-desc">
+                Hệ thống ôn tập. Xem kết quả ngay lập tức.
+            </p>
+            
+            <div class="actions">
+                <a href="mode.html" class="btn btn-primary">Bắt đầu ngay</a>
+                <button class="btn btn-outline" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">
+                    Khám phá thêm
+                </button>
             </div>
         </section>
 
-        <section class="info-section glass-box" id="about">
-            <div class="info-item">
-                <div class="icon-box">
-                    <i class="fas fa-bolt"></i>
-                </div>
-                <div class="text-box">
-                    <h4>Tốc độ</h4>
-                    <p>Chấm điểm tức thì</p>
+        <section class="feature-grid" id="about">
+            <div class="f-item">
+                <div class="f-icon"><i class="fas fa-bolt"></i></div>
+                <div class="f-text">
+                    <h4>Tối ưu hóa</h4>
+                    <p>Hệ thống xử lý nhanh chóng.</p>
                 </div>
             </div>
+            
             <div class="divider"></div>
-            <div class="info-item">
-                <div class="icon-box">
-                    <i class="fas fa-database"></i>
-                </div>
-                <div class="text-box">
-                    <h4>Đa dạng</h4>
-                    <p>Dữ liệu hên xui nha</p>
+            
+            <div class="f-item">
+                <div class="f-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="f-text">
+                    <h4>Tin cậy</h4>
+                    <p>Dữ liệu hên xui nha.</p>
                 </div>
             </div>
         </section>
-
-        <footer class="footer" id="contact">
-            <p>© 2024 Duy Tien. All rights reserved.</p>
-            <div class="social-links">
-                <a href="#"><i class="fab fa-telegram"></i></a>
-                <a href="https://www.facebook.com/profile.php?id=61584429791945" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-facebook"></i>
-                </a>
-            </div>
-        </footer>
-
     </main>
+
+    <footer class="site-footer" id="contact">
+        <p>© 2024 Duy Tien. All rights reserved.</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=61584429791945" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        </div>
+    </footer>
   </div>
 
-  <style>
-    :root {
-        --bg: #050505;
-        --surface: rgba(20, 20, 20, 0.4);
-        --border: rgba(255, 255, 255, 0.1);
-        --text-main: #EDEDED;
-        --text-sub: #9ca3af;
-        --primary: #ffffff;
-        --font: 'Inter', sans-serif;
-        --max-width-desktop: 1100px;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; outline: none; -webkit-tap-highlight-color: transparent; }
-    html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text-main); font-family: var(--font); overflow-x: hidden; line-height: 1.5; }
-
-    .app-container { width: 100%; min-height: 100vh; display: flex; flex-direction: column; position: relative; }
-
-    /* --- FIX VIDEO BACKGROUND FULL TRANG --- */
-    .video-wrapper {
-        position: fixed; /* Chuyển sang fixed để bám theo toàn màn hình khi cuộn */
-        top: 0; left: 0; width: 100%; height: 100vh;
-        z-index: -1; /* Nằm dưới cùng */
-        pointer-events: none;
-    }
-    .bg-video { 
-        width: 100%; height: 100%; object-fit: cover; 
-        opacity: 0.65; /* Tăng từ 0.5 lên 0.65 để thấy video rõ hơn nữa */
-    }
-    .video-overlay {
-        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        /* Giảm độ đen của gradient để nhìn xuyên thấu video tốt hơn */
-        background: linear-gradient(180deg, rgba(5,5,5,0.2) 0%, rgba(5,5,5,0.6) 100%);
-        z-index: 1;
-    }
-
-    /* Navbar */
-    .navbar {
-        position: sticky; top: 0; z-index: 100;
-        width: 100%;
-        background: rgba(5, 5, 5, 0.4); /* Giảm độ đục để thấy video phía sau */
-        backdrop-filter: blur(15px);
-        border-bottom: 1px solid var(--border);
-    }
-    .nav-inner { max-width: var(--max-width-desktop); margin: 0 auto; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-weight: 800; font-size: 18px; letter-spacing: -0.5px; display: flex; gap: 10px; align-items: center; color: #fff; }
-    .desktop-menu { display: none; gap: 32px; }
-    .nav-link { color: var(--text-sub); text-decoration: none; font-size: 14px; font-weight: 500; transition: 0.2s; }
-    .nav-link:hover { color: #fff; }
-    .mobile-menu-btn { background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; display: block; }
-
-    .mobile-menu {
-        position: absolute; top: 100%; right: 16px; width: 220px;
-        background: rgba(26, 26, 26, 0.9); border: 1px solid var(--border);
-        border-radius: 12px; padding: 8px; display: flex; flex-direction: column; gap: 4px;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.6); opacity: 0; transform: translateY(-10px); 
-        pointer-events: none; transition: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .mobile-menu.active { opacity: 1; transform: translateY(0); pointer-events: all; }
-    .menu-link { padding: 12px 16px; border-radius: 8px; font-size: 14px; color: var(--text-sub); text-decoration: none; }
-
-    /* Content */
-    .content-wrapper { 
-        position: relative; z-index: 2; flex: 1; display: flex; flex-direction: column;
-        width: 100%; max-width: var(--max-width-desktop); margin: 0 auto; padding: 0 24px;
-    }
-
-    .hero { padding: 80px 0 40px 0; text-align: center; display: flex; flex-direction: column; align-items: center; }
-    .hero-title {
-        font-size: 42px; font-weight: 800; line-height: 1.15; margin-bottom: 20px;
-        letter-spacing: -1.5px; color: #fff;
-        text-shadow: 0 2px 15px rgba(0,0,0,0.5);
-    }
-    .hero-desc { font-size: 16px; color: #fff; line-height: 1.6; margin-bottom: 40px; max-width: 500px; text-shadow: 0 1px 5px rgba(0,0,0,0.5); }
-
-    .action-group { display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 320px; margin: 0 auto; }
-    .btn { height: 52px; display: flex; align-items: center; justify-content: center; gap: 10px; border-radius: 14px; font-size: 15px; font-weight: 600; cursor: pointer; text-decoration: none; transition: 0.2s; }
-    .btn-primary { background: var(--primary); color: #000; border: none; }
-    .btn-outline { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid var(--border); backdrop-filter: blur(5px); }
-
-    .glass-box {
-        background: rgba(30, 30, 30, 0.4); border: 1px solid var(--border);
-        backdrop-filter: blur(12px); border-radius: 20px; padding: 24px;
-        display: flex; align-items: center; justify-content: space-between;
-        margin: 40px auto; width: 100%; max-width: 480px;
-    }
-    .info-item { display: flex; align-items: center; gap: 16px; flex: 1; justify-content: center; }
-    .icon-box { width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; }
-    .text-box h4 { font-size: 14px; font-weight: 600; color: #fff; }
-    .text-box p { font-size: 12px; color: #ddd; }
-    .divider { width: 1px; height: 40px; background: var(--border); }
-
-    .footer { margin-top: auto; padding: 30px 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: #ddd; }
-    .social-links { display: flex; gap: 20px; font-size: 18px; }
-    .social-links a { color: #fff; }
-
-    .hidden { display: none; }
-
-    /* Responsive */
-    @media (min-width: 769px) {
-        .mobile-menu-btn { display: none; }
-        .desktop-menu { display: flex; }
-        .hero { padding: 120px 0 60px 0; }
-        .hero-title { font-size: 64px; }
-        .action-group { flex-direction: row; justify-content: center; max-width: none; }
-        .btn { width: 180px; }
-        .glass-box { max-width: 600px; }
-    }
-
-    @media (max-width: 768px) {
-        .hero-title { font-size: 36px; }
-        .footer { flex-direction: column-reverse; gap: 16px; text-align: center; }
-    }
-  </style>
-
   <script>
-    const btn = document.getElementById('mobileMenuBtn');
-    const menu = document.getElementById('mobileMenu');
-    btn.addEventListener('click', (e) => {
+    const trigger = document.getElementById('mToggle');
+    const menu = document.getElementById('mMenu');
+    
+    trigger.addEventListener('click', (e) => {
         e.stopPropagation();
-        menu.classList.toggle('hidden');
-        setTimeout(() => menu.classList.toggle('active'), 10);
+        menu.classList.toggle('active');
+        trigger.classList.toggle('active');
     });
+
     document.addEventListener('click', (e) => {
-        if (!menu.contains(e.target) && !btn.contains(e.target)) {
+        if (!menu.contains(e.target) && menu.classList.contains('active')) {
             menu.classList.remove('active');
-            setTimeout(() => menu.classList.add('hidden'), 200);
+            trigger.classList.remove('active');
         }
     });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    const revealTarget = document.querySelector('.feature-grid');
+    revealTarget.style.transition = '1.2s cubic-bezier(0.2, 0.8, 0.2, 1)';
+    observer.observe(revealTarget);
   </script>
 </body>
 </html>
